@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+<div th:fragment="com_header" class="row" style="margin: 20px">
+    <div class="col-md-6" style="display: flex;justify-content: start">
+        <img class="img-responsive" style="margin-right: 15px" src="/image/book.png" alt="image">
+        <h3>图书管理系统<small>Library Management System</small></h3>
+    </div>
+    <div class="col-md-2 col-md-offset-4" style="display: flex;justify-content: end">
+        <h5>欢迎您</h5>
+        <img class="img-circle" style="width: 35px;margin-left: 10px" alt="image" th:if="${session.user.getRole_id() == 1}" src="/image/werlite.png">
+        <img class="img-circle" style="width: 35px;margin-left: 10px" alt="image" th:if="${session.user.getRole_id() == 2}" src="/image/admin.png">
+        <img class="img-circle" style="width: 35px;margin-left: 10px" alt="image" th:if="${session.user.getRole_id() == 3}" src="/image/system.png">
+        <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                更多
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a th:href="@{'/login/exit'}">退出</a></li>
+                <li><a th:href="@{'/login/updateUserPassword'}">修改密码</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+
+</html>

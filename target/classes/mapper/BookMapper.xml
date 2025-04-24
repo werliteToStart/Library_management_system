@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BookMapper">
+    <select id="queryAllBook" resultType="Book">
+        select * from library_management_system.book;
+    </select>
+
+    <select id="queryAllBookByNoStatus" resultType="Book">
+        select * from library_management_system.book where id not in (select book_id from library_management_system.loan);
+    </select>
+
+    <select id="queryAllBookByNoStatusByTitle" resultType="Book">
+        select * from library_management_system.book where id not in (select book_id from library_management_system.loan) and title=#{title};
+    </select>
+
+    <select id="queryAllBookByNoStatusByAuthor" resultType="Book">
+        select * from library_management_system.book where id not in (select book_id from library_management_system.loan) and author=#{author};
+    </select>
+
+    <select id="queryAllBookByNoStatusByIsbn" resultType="Book">
+        select * from library_management_system.book where id not in (select book_id from library_management_system.loan) and isbn=#{isbn};
+    </select>
+
+    <select id="queryAllBookByNoStatusByPublisher" resultType="Book">
+        select * from library_management_system.book where id not in (select book_id from library_management_system.loan) and publisher=#{publisher};
+    </select>
+
+    <select id="queryBookByTitle" resultType="Book" parameterType="String">
+        select * from library_management_system.book where title=#{title};
+    </select>
+    <select id="queryBookByAuthor" resultType="Book" parameterType="String">
+        select * from library_management_system.book where author=#{author};
+    </select>
+    <select id="queryBookByIsbn" resultType="Book" parameterType="String">
+        select * from library_management_system.book where isbn=#{isbn};
+    </select>
+    <select id="queryBookByPublisher" resultType="Book" parameterType="String">
+        select * from library_management_system.book where publisher=#{publisher};
+    </select>
+
+    <select id="queryBookById" resultType="Book" parameterType="int">
+        select * from library_management_system.book where id=#{id};
+    </select>
+
+    <select id="queryAllLoanByUserId" resultType="Loan" parameterType="int">
+        select * from library_management_system.loan where user_id=#{user_id};
+    </select>
+
+    <select id="queryAllLoanByStatus" resultType="Loan" parameterType="int">
+        select * from library_management_system.loan where status=#{status};
+    </select>
+
+    <select id="queryLoanById" resultType="Loan" parameterType="int">
+        select * from library_management_system.loan where id=#{id};
+    </select>
+
+
+    <select id="queryUserByUsername" resultType="User" parameterType="String">
+        select * from library_management_system.user where username=#{username};
+    </select>
+
+    <insert id="insertBook" parameterType="Book">
+        insert into library_management_system.book (title, author, isbn,publisher,publish_date)
+        values (#{title},#{author},#{isbn},#{publisher},#{publish_date});
+    </insert>
+
+    <insert id="insertLoan" parameterType="Loan">
+        insert into library_management_system.loan (user_id, book_id, borrow_date,status)
+        values (#{user_id},#{book_id},#{borrow_date},#{status});
+    </insert>
+
+    <update id="updateBook" parameterType="Book">
+        update library_management_system.book
+        set title=#{title}, author=#{author}, isbn=#{isbn},publisher=#{publisher},publish_date=#{publish_date}
+        where id = #{id};
+    </update>
+
+    <update id="updateLoan" parameterType="Loan">
+        update library_management_system.loan
+        set user_id=#{user_id}, book_id=#{book_id}, borrow_date=#{borrow_date},status=#{status}
+        where id = #{id};
+    </update>
+
+    <delete id="deleteBookById" parameterType="int">
+        delete from library_management_system.book where id=#{id};
+    </delete>
+
+
+    <delete id="deleteLoanByBookId" parameterType="int">
+        delete from library_management_system.loan where book_id=#{bookId};
+    </delete>
+
+    <delete id="deleteLoanById" parameterType="int">
+        delete from library_management_system.loan where id=#{id};
+    </delete>
+</mapper>

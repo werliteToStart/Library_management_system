@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${session.user.getRole_id() == 1}">用户</title>
+    <title th:if="${session.user.getRole_id() == 2}">管理员</title>
+    <title th:if="${session.user.getRole_id() == 3}">系统管理员</title>
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <script src="/js/user_index.js"></script>
+    <link rel="icon" th:if="${session.user.getRole_id() == 1}" href="/image/user.png">
+    <link rel="icon" th:if="${session.user.getRole_id() == 2}" href="/image/admin_icon.png">
+    <link rel="icon" th:if="${session.user.getRole_id() == 3}" href="/image/system_icon.png">
+</head>
+<body>
+    <div class="container-fluid">
+
+        <div th:replace="~{component::com_header}"></div>
+        <div class="row">
+            <div class="col-lg-2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" th:switch="${session.user.getRole_id()}">
+                        <span th:case="1">书籍查询</span>
+                        <span th:case="2">书籍管理</span>
+                        <span th:case="3">书籍管理</span>
+                    </li>
+                    <li role="presentation" class="active" th:switch="${session.user.getRole_id()}">
+                        <a href="/book/queryAllBook" th:case="1">书籍搜索</a>
+                        <a href="/admin/queryAllBook" th:case="2">书目整理</a>
+                        <a href="/admin/queryAllBook" th:case="3">书目整理</a>
+                    </li>
+                    <li role="presentation" th:switch="${session.user.getRole_id()}">
+                        <a href="/loan/queryAllLoan" th:case="1">书籍借阅</a>
+                        <a href="/loan/queryAllLoan" th:case="2">借阅管理</a>
+                        <a href="/loan/queryAllLoan" th:case="3">借阅管理</a>
+                    </li>
+                    <li role="presentation">
+                        <a th:if="${session.user.getRole_id() == 2 || session.user.getRole_id() == 3}" href="/admin/queryAllUser">用户借阅</a>
+                    </li>
+                    <li role="presentation">
+                        <a th:if="${session.user.getRole_id() == 3}" href="/system/queryAllUser">用户管理</a>
+                    </li>
+                </ul>
+            </div>
+            <div class=" col-md-10">
+                <form th:action="@{'/admin/insertBook'}" method="post">
+                    <div class="input-group" style="margin-bottom: 15px;width: 40%">
+                        <span class="input-group-addon" style="width: 100px" id="basic-addon1">书名</span>
+                        <input type="text" name="title" class="form-control" placeholder="title" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 15px;width: 40%">
+                        <span class="input-group-addon" style="width: 100px" id="basic-addon2">作者</span>
+                        <input type="text" name="author" class="form-control" placeholder="author" aria-describedby="basic-addon2">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 15px;width: 40%">
+                        <span class="input-group-addon" style="width: 100px" id="basic-addon3">isbn</span>
+                        <input type="text" name="isbn" class="form-control"  placeholder="isbn" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 15px;width: 40%">
+                        <span class="input-group-addon" style="width: 100px" id="basic-addon4">出版社</span>
+                        <input type="text" name="publisher" class="form-control"  placeholder="publisher" aria-describedby="basic-addon4">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 15px;width: 40%">
+                        <span class="input-group-addon" style="width: 100px" id="basic-addon5">创作时间</span>
+                        <input type="date" name="publish_date" class="form-control"  placeholder="publishDate" aria-describedby="basic-addon5">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 15px;width: 40%">
+                        <span style="width: 100px;visibility: hidden;display: inline-block"></span>
+                        <input class="btn btn-primary" onclick="return confirm('确定提交吗')" type="submit" value="确定">
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>
