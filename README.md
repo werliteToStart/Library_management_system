@@ -1,6 +1,6 @@
-# 图书管理系统
+# 墨香云阁
 ## 概述
-基于Springboot+thymeleaf+MyBatis的图书管理系统。主要功能包括：书籍查询，书籍修改，书籍删除，书籍增加，借阅管理，用户管理等。
+基于Springboot+thymeleaf+MyBatis的墨香云阁。主要功能包括：书籍查询，书籍修改，书籍删除，书籍增加，借阅管理，用户管理等。
 ## 环境配置
 开发环境：window 11，Intellij IDEA 2023.2.8
 
